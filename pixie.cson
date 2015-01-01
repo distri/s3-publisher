@@ -1,0 +1,4 @@
+version: "0.1.0"
+dependencies:
+  "s3-uploader": "distri/s3-uploader:v0.1.2"
+  q: "distri/q:v1.0.1"
