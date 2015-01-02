@@ -4,6 +4,8 @@ S3 Publisher
 TODO: This should just publish a single JSON package file for use with `launcher`
 That same package could be loaded in an editor, modified, and saved again.
 
+TODO: Think about publishing docs html as a separate thing.
+
     Q = require "q"
     Uploader = require "s3-uploader"
 
