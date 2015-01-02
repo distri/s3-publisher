@@ -1,7 +1,8 @@
 S3 Publisher
 ============
 
-Publish a filetree to S3.
+TODO: This should just publish a single JSON package file for use with `launcher`
+That same package could be loaded in an editor, modified, and saved again.
 
     Q = require "q"
     Uploader = require "s3-uploader"
@@ -20,7 +21,7 @@ Publish a filetree to S3.
       publish: (data) ->
         {tree} = data
 
-        # TODO: Path Prefix
+        # TODO: Gzip
 
         Q.all Object.keys(tree).map ({content, path}) ->
           # TODO: Content-Type
