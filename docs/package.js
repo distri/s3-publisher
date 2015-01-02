@@ -180,7 +180,7 @@
     },
     "main.coffee.md": {
       "path": "main.coffee.md",
-      "content": "S3 Publisher\n============\n\nPublish a filetree to S3.\n\n    Q = require \"q\"\n    Uploader = require \"s3-uploader\"\n\n    module.exports = (policy) ->\n      uploader = Uploader(policy)\n\n      uploadFile = (data, retries=2) ->\n        uploader.upload(data)\n        .fail ->\n          if retries > 0\n            uploadFile(data, retries - 1)\n          else\n            throw \"Failed to upload #{data.key}\"\n\n      publish: (data) ->\n        {tree} = data\n\n        # TODO: Path Prefix\n\n        Q.all Object.keys(tree).map ({content, path}) ->\n          # TODO: Content-Type\n          uploadFile\n            key: path\n            blob: new Blob [content]\n",
+      "content": "S3 Publisher\n============\n\nTODO: This should just publish a single JSON package file for use with `launcher`\nThat same package could be loaded in an editor, modified, and saved again.\n\n    Q = require \"q\"\n    Uploader = require \"s3-uploader\"\n\n    module.exports = (policy) ->\n      uploader = Uploader(policy)\n\n      uploadFile = (data, retries=2) ->\n        uploader.upload(data)\n        .fail ->\n          if retries > 0\n            uploadFile(data, retries - 1)\n          else\n            throw \"Failed to upload #{data.key}\"\n\n      publish: (data) ->\n        {tree} = data\n\n        # TODO: Gzip\n\n        Q.all Object.keys(tree).map ({content, path}) ->\n          # TODO: Content-Type\n          uploadFile\n            key: path\n            blob: new Blob [content]\n",
       "mode": "100644"
     },
     "pixie.cson": {

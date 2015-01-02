@@ -32,7 +32,8 @@
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>Publish a filetree to S3.</p>
+              <p>TODO: This should just publish a single JSON package file for use with <code>launcher</code>
+That same package could be loaded in an editor, modified, and saved again.</p>
 
             </div>
             <div class="content"><pre><code class="lang-coffeescript">Q = require <span class="string">"q"</span>
@@ -52,7 +53,7 @@ module.<span class="function"><span class="title">exports</span></span> = (polic
   publish: (data) -&gt;
     {tree} = data
 
-    <span class="comment"># TODO: Path Prefix</span>
+    <span class="comment"># TODO: Gzip</span>
 
     Q.all Object.keys(tree).map ({content, path}) -&gt;
       <span class="comment"># TODO: Content-Type</span>
