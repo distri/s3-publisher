@@ -37,30 +37,19 @@ That same package could be loaded in an editor, modified, and saved again.</p>
 <p>TODO: Think about publishing docs html as a separate thing.</p>
 
             </div>
-            <div class="content"><pre><code class="lang-coffeescript">Q = require <span class="string">"q"</span>
-Uploader = require <span class="string">"s3-uploader"</span>
+            <div class="content"><pre><code class="lang-coffeescript">Uploader = require <span class="string">"s3-uploader"</span>
 
 module.<span class="function"><span class="title">exports</span></span> = (policy) -&gt;
   uploader = Uploader(policy)
 
-  <span class="function"><span class="title">uploadFile</span></span> = (data, retries=<span class="number">2</span>) -&gt;
-    uploader.upload(data)
-    .fail -&gt;
-      <span class="keyword">if</span> retries &gt; <span class="number">0</span>
-        uploadFile(data, retries - <span class="number">1</span>)
-      <span class="keyword">else</span>
-        <span class="keyword">throw</span> <span class="string">"Failed to upload <span class="subst">#{data.key}</span>"</span>
-
-  publish: (data) -&gt;
-    {tree} = data
-
+  publish: (name, pkg) -&gt;
     <span class="comment"># TODO: Gzip</span>
+    blob = <span class="keyword">new</span> Blob [JSON.stringify(pkg)],
+      type: <span class="string">"application/json"</span>
 
-    Q.all Object.keys(tree).map ({content, path}) -&gt;
-      <span class="comment"># TODO: Content-Type</span>
-      uploadFile
-        key: path
-        blob: <span class="keyword">new</span> Blob [content]</code></pre>
+    uploader.upload
+      key: <span class="string">"<span class="subst">#{name}</span>.json"</span>
+      blob: blob</code></pre>
 </div>
         </li>
         
