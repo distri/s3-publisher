@@ -6,27 +6,16 @@ That same package could be loaded in an editor, modified, and saved again.
 
 TODO: Think about publishing docs html as a separate thing.
 
-    Q = require "q"
     Uploader = require "s3-uploader"
 
     module.exports = (policy) ->
       uploader = Uploader(policy)
 
-      uploadFile = (data, retries=2) ->
-        uploader.upload(data)
-        .fail ->
-          if retries > 0
-            uploadFile(data, retries - 1)
-          else
-            throw "Failed to upload #{data.key}"
-
-      publish: (data) ->
-        {tree} = data
-
+      publish: (name, pkg) ->
         # TODO: Gzip
+        blob = new Blob [JSON.stringify(pkg)],
+          type: "application/json"
 
-        Q.all Object.keys(tree).map ({content, path}) ->
-          # TODO: Content-Type
-          uploadFile
-            key: path
-            blob: new Blob [content]
+        uploader.upload
+          key: "#{name}.json"
+          blob: blob
